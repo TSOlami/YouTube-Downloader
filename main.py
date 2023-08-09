@@ -74,8 +74,10 @@ def main():
 
     while True:
         try:
-            youtube_url = input("Enter the YouTube URL: ").strip()
-
+            youtube_url = input("Enter the YouTube URL (or 'exit' to quit): ").strip()
+            if youtube_url.lower() == "exit":
+              break
+            
             video_info = extract(youtube_url)
 
             print("\nVideo Title:", video_info['title'])
