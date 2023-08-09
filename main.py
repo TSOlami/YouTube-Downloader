@@ -89,8 +89,14 @@ def main():
             selected_option = int(
                 input("\nEnter the option number to download video: "))
             selected_stream = video_info['video_formats'][selected_option - 1]
+            
+			# After selecting the format to download
+            create_folder_option = input("Create a new folder to save media? (yes/no): ").lower()
+            if create_folder_option == "yes":
+                folder_name = input("Enter folder name: ")
+                save_path = os.path.join(save_path, folder_name)
+                os.makedirs(save_path, exist_ok=True)
 
-            save_path = input("Enter the directory to save the media: ")
             download_option = input(
                 "Show progress bar during download? (yes/no): ").lower()
             show_progress = download_option == "yes"
