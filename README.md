@@ -34,3 +34,5 @@ YouTube Media Downloader is a Python script that allows you to download both vid
    
 5. **Download Completed**:
    Once the download is complete, the media file will be saved to the specified directory.
+
+## Usage Examples
