@@ -37,7 +37,7 @@ def download_media(stream, save_path, show_progress=True):
         stream (Stream): The media stream to download.
         save_path (str): The path to save the downloaded media file.
         show_progress (bool): Whether to show a progress bar during download.
-        
+
     Returns:
         None
     """
@@ -68,36 +68,35 @@ def main():
     during download.
 
     Returns:
-        None  
+        None
     """
     print("Welcome to YouTube Media Downloader!")
 
-    try:
-        youtube_url = input("Enter the YouTube URL: ").strip()
-      
-        video_info = extract(youtube_url)
+    while True:
+        try:
+            youtube_url = input("Enter the YouTube URL: ").strip()
 
-        print("\nVideo Title:", video_info['title'])
-        print("Available Formats:")
-        for index, stream in enumerate(video_info['video_formats'], start=1):
-            print(f"{index}. {stream.resolution} - {stream.mime_type}")
+            video_info = extract(youtube_url)
 
-        selected_option = int(
-            input("\nEnter the option number to download video: "))
-        selected_stream = video_info['video_formats'][selected_option - 1]
+            print("\nVideo Title:", video_info['title'])
+            print("Available Formats:")
+            for index, stream in enumerate(video_info['video_formats'], start=1):
+                print(f"{index}. {stream.resolution} - {stream.mime_type}")
 
-        save_path = input("Enter the directory to save the media: ")
-        download_option = input(
-            "Show progress bar during download? (yes/no): ").lower()
-        show_progress = download_option == "yes"
+            selected_option = int(
+                input("\nEnter the option number to download video: "))
+            selected_stream = video_info['video_formats'][selected_option - 1]
 
-        download_media(selected_stream, save_path, show_progress)
-        print("Download completed!")
+            save_path = input("Enter the directory to save the media: ")
+            download_option = input(
+                "Show progress bar during download? (yes/no): ").lower()
+            show_progress = download_option == "yes"
 
-    except ValueError as ve:
-        print("Input validation error:", ve)
-    except Exception as e:
-        print("An error occurred:", e)
+            download_media(selected_stream, save_path, show_progress)
+            print("Download completed!")
+
+        except Exception as e:
+            print("An error occurred:", e)
 
 
 if __name__ == "__main__":
