@@ -70,7 +70,7 @@ def main():
     Returns:
         None
     """
-    print("Welcome to YouTube Media Downloader!")
+    print("Welcome to YouTube Media Downloader by TSOlami!")
 
     while True:
         try:
