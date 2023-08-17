@@ -31,6 +31,7 @@ YouTube Media Downloader is a Python script that allows you to download both vid
 - Choose the desired format.
 - Specify the output directory.
 - Choose whether to show a progress bar.
+- Choose whether to download another video
    
 5. **Download Completed**:
    Once the download is complete, the media file will be saved to the specified directory.

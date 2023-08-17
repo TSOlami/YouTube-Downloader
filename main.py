@@ -5,6 +5,8 @@ from tqdm import tqdm
 from pytube.exceptions import RegexMatchError
 
 
+default_save_path = "."  # Default to the current directory
+
 def extract(youtube_url):
     """
     Extracts video information and available formats from a YouTube URL.
@@ -16,18 +18,14 @@ def extract(youtube_url):
         dict: A dictionary containing video information and available formats.
             Keys: 'title', 'thumbnail', 'video_formats', 'audio_formats'
     """
-    try:
-        yt = YouTube(youtube_url)
-        video_info = {
-            'title': yt.title,
-            'thumbnail': yt.thumbnail_url,
-            'video_formats': yt.streams.filter(file_extension='mp4').all(),
-            'audio_formats': yt.streams.filter(only_audio=True).all()
-        }
-        return video_info
-    except RegexMatchError:
-        raise ValueError("Invalid YouTube URL")
-
+    yt = YouTube(youtube_url)
+    video_info = {
+        'title': yt.title,
+        'thumbnail': yt.thumbnail_url,
+        'video_formats': yt.streams.filter(file_extension='mp4').all(),
+        'audio_formats': yt.streams.filter(only_audio=True).all()
+    }
+    return video_info
 
 def download_media(stream, save_path, show_progress=True):
     """
@@ -94,8 +92,10 @@ def main():
             create_folder_option = input("Create a new folder to save media? (yes/no): ").lower()
             if create_folder_option == "yes":
                 folder_name = input("Enter folder name: ")
-                save_path = os.path.join(save_path, folder_name)
+                save_path = os.path.join(default_save_path, folder_name)
                 os.makedirs(save_path, exist_ok=True)
+            else:
+                save_path = default_save_path
 
             download_option = input(
                 "Show progress bar during download? (yes/no): ").lower()
@@ -103,6 +103,10 @@ def main():
 
             download_media(selected_stream, save_path, show_progress)
             print("Download completed!")
+
+            another_download = input("Do you want to download another video? (yes/no): ").lower()
+            if another_download != "yes":
+                break  # Exit the loop
 
         except Exception as e:
             print("An error occurred:", e)
